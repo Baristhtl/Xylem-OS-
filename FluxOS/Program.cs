@@ -23,9 +23,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// --- BURASI ARTIK TERTEMİZ ---
 app.UseStaticFiles();
-// -----------------------------
 
 app.UseRouting();
 app.UseSession();
