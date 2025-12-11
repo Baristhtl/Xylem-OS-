@@ -17,7 +17,7 @@ function konuKaydet(event) {
         baslik: baslik,
         kategori: kategori,
         icerik: icerik,
-        yazar: "Ziyaretçi", // Şimdilik sabit, ilerde giriş yapan kişi olacak
+        yazar: "Ziyaretçi", 
         tarih: "Az önce",
         goruntulenme: 0,
         yanit: 0
