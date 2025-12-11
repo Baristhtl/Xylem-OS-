@@ -77,7 +77,7 @@
             /* --- TAŞMAYI ENGELLEYEN AYARLAR --- */
             display: block; /* Kutu gibi davranmasını sağlar */
             width: 100%; /* Genişliği kutu kadar yap */
-            box-sizing: border-box; /* EN ÖNEMLİSİ: Padding'i genişliğe dahil et (Taşmayı önler) */
+            box-sizing: border-box; /* Padding'i genişliğe dahil et (Taşmayı önler) */
             text-align: center; /* Yazıyı ortala */
             text-decoration: none; /* Alt çizgiyi kaldır */
             /* ---------------------------------- */

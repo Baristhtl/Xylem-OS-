@@ -14,7 +14,7 @@ const konuVerileri = {
     "102": {
         baslik: 'Pacman güncellemesinde "PGP Key" hatası alıyorum',
         etiket: "HATA",
-        etiketSinifi: "tag-bug", // Sarı renk için (CSS'de varsa) yoksa tag-question kalabilir
+        etiketSinifi: "tag-bug", 
         yazar: "user123",
         avatarHarf: "U",
         avatarRenk: "#fcd535",
@@ -47,7 +47,6 @@ let currentCount = 0;
 document.addEventListener("DOMContentLoaded", function() {
     
     // A) SAYFA İÇERİĞİNİ DOLDUR (ŞABLONU DOLDURMA)
-    // Önce elle yazdıklarımıza bak (Statik veriler)
     let veri = konuVerileri[KONU_ID];
 
     // Eğer statiklerde yoksa, LocalStorage'daki "detay_icerikleri"ne bak
@@ -87,7 +86,6 @@ document.addEventListener("DOMContentLoaded", function() {
         currentCount = parseInt(kayitliYanitSayisi);
     } else {
         // Eğer bu konuya hiç yorum yapılmamışsa HTML'deki varsayılan sayı kalmasın, 0 olsun.
-        // Ancak demo olduğu için Nvidia'da (101) 12 yanıt var gibi davranabiliriz.
         if (KONU_ID === '101') currentCount = 12;
         else if (KONU_ID === '102') currentCount = 3;
         else currentCount = 0;
