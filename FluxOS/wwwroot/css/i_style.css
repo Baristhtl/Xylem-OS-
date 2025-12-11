@@ -105,7 +105,6 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
-                /* Dosya adının Arkaplan.jpg olduğuna eminsen bunu kullan: */
                 background: linear-gradient(rgba(15, 23, 42, 0.6), rgba(15, 23, 42, 0.9)), url('../img/Arkaplan.jpg');
                 background-size: cover;
                 background-position: center;
