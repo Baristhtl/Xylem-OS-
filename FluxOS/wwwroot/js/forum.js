@@ -42,8 +42,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
 
-    // --- B) BURADAN SONRASI SENİN ESKİ SAYAÇ KODLARIN ---
-    // (Aşağıdaki kodlar senin zaten dosyanın içinde var, onlara dokunma)
+    // --- B)   SAYAÇ KODLARI ---
     
     // 1. GÖRÜNTÜLENME SAYILARINI YÜKLE...
     let tumGoruntulenmeler = document.querySelectorAll('.sayac');
@@ -58,8 +57,6 @@ function goruntulenmeArtir(id) {
     // 2. Mevcut sayıyı hafızadan al
     let mevcutSayi = localStorage.getItem(hafizaAnahtari);
 
-    // Daha önce tıklanmamışsa varsayılan olarak HTML'deki sayıyı alacağız ama
-    // güvenlik için 0 kabul edip üzerine ekleyelim veya direkt HTML'den okuyalım.
     if (!mevcutSayi) {
         // O anki HTML elementini bulup içindeki sayıyı başlangıç kabul edebiliriz
         let ilgiliKutu = document.querySelector(`.sayac[data-id="${id}"]`);
