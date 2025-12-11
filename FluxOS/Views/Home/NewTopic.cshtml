@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = "Yeni Konu Aç";
+    var kategoriler = ViewBag.Kategoriler as List<FluxOS.Models.Category>;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/yeni_konu.css" />
+}
+
+<div class="container" style="margin-top: 50px;">
+
+    <div class="form-card">
+        <div class="form-header">
+            <h2>🚀 Yeni Konu Oluştur</h2>
+            <p>Sorununu veya düşünceni toplulukla paylaş.</p>
+        </div>
+
+        <form asp-action="NewTopic" method="post">
+
+            <div class="form-group">
+                <label for="title">Konu Başlığı</label>
+                <input type="text" name="title" id="title" placeholder="Örn: Nvidia siyah ekran sorunu" required>
+                <small>Kısa ve açıklayıcı bir başlık girin.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="categoryId">Kategori</label>
+                <select name="categoryId" id="categoryId" required>
+                    <option value="" disabled selected>Bir kategori seçin...</option>
+                    @if (kategoriler != null)
+                    {
+                        foreach (var kat in kategoriler)
+                        {
+                            <option value="@kat.CategoryId">@kat.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="content">Mesajınız</label>
+                <textarea name="content" id="content" placeholder="Detayları buraya yazın..." required></textarea>
+            </div>
+
+            <div class="form-actions">
+                <a asp-action="Forum" class="btn-cancel" style="text-decoration:none;">İptal</a>
+                <button type="submit" class="btn-submit">Konuyu Yayınla</button>
+            </div>
+
+        </form>
+    </div>
+</div>

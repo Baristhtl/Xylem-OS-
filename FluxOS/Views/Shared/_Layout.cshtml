@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title >@ViewData["Title"] - Xylem OS</title>
+
+    <link rel="stylesheet" href="~/css/i_style.css" />
+
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+
+    <nav>
+        <a asp-controller="Home" asp-action="Index" class="logo" style="text-decoration:none;">
+            <img src="~/img/Screenshot 2025-12-03 134646-Picsart-BackgroundRemover.png" alt="Logo">
+            XYLEM OS
+        </a>
+
+        <div class="nav-links">
+            <a asp-controller="Home" asp-action="Index">Ana Sayfa</a>
+            <a asp-controller="News" asp-action="Index">Haberler</a>
+            <a asp-controller="Home" asp-action="Forum">Forum</a>
+            <a asp-controller="Home" asp-action="Wiki">Wiki</a>
+
+            <a asp-controller="Home" asp-action="Download" style="font-weight: bold; color: #6c63ff; transition: 0.3s;">
+                ⬇ Download
+            </a>
+
+            @using Microsoft.AspNetCore.Http
+            @inject IHttpContextAccessor HttpContextAccessor
+
+            @{
+                var username = HttpContextAccessor.HttpContext.Session.GetString("Username");
+            }
+
+            @if (string.IsNullOrEmpty(username))
+            {
+                <a asp-controller="Account" asp-action="Login">Giriş Yap</a>
+                <a asp-controller="Account" asp-action="Register" class="btn-primary">Kayıt Ol</a>
+            }
+            else
+            {
+                <span style="color:#6c63ff; font-weight:bold; margin-left:15px;">@username</span>
+                <a asp-controller="Account" asp-action="Logout" style="color:#ef4444;">Çıkış</a>
+            }
+        </div>
+    </nav>
+
+    <div class="main-content">
+        @RenderBody()
+    </div>
+
+    <footer>
+        @* <p>&copy; 2025 <a style="color: #cbd5e1;" asp-controller="Home" asp-action="Index">XYLEM OS AÇIK KAYNAK GELİŞTİRME TOPLULUĞU</a> || Tüm hakları saklıdır.</p> *@
+        <div style="text-align: center; padding: 20px; font-size: 0.9rem; color: #64748b;">
+            <p>
+                &copy; 2025 <strong>Xylem OS</strong>. Tüm Hakları Saklıdır.
+                <br>
+                Design & Development by <strong>[BARIŞ TAHTALIOĞLU]</strong>
+            </p>
+            <p style="font-size: 0.8rem; margin-top: 5px;">
+                Bu proje, Yozgat Bozok Üniversitesi Web Programlama Dersi kapsamında geliştirilmiştir.
+            </p>
+        </div>
+    </footer>
+
+    <script src="~/js/forum.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

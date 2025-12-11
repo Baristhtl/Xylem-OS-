@@ -1,0 +1,100 @@
+﻿@model List<FluxOS.Models.Topic>
+
+@{
+    ViewData["Title"] = "Forum";
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/f_style.css" />
+}
+
+<div class="forum-container">
+
+    <aside class="sidebar">
+        <a asp-action="NewTopic" class="new-topic-btn" style="display: block;
+          width: 100%;
+          box-sizing: border-box;
+          text-align: center;
+          text-decoration: none;
+          background-color: #6c63ff;
+          color: white;
+          padding: 15px;
+          border-radius: 12px;
+          font-weight: bold;
+          box-shadow: 0 4px 6px rgba(0,0,0,0.2);">+ Yeni Konu Aç</a>
+
+        <h3>Kategoriler</h3>
+        <ul class="category-list">
+            @{
+                // Controller'dan gönderdiğimiz çantayı açıyoruz
+                var kategoriListesi = ViewBag.KategoriListesi as List<FluxOS.Models.Category>;
+            }
+
+            @if (kategoriListesi != null)
+            {
+                @foreach (var kat in kategoriListesi)
+                {
+                    // Kategori ismine göre ikon belirleyelim (Tasarım bozulmasın diye)
+                    string ikon = "📁"; // Varsayılan ikon
+                    if (kat.Name.Contains("Sohbet")) ikon = "🌍";
+                    else if (kat.Name.Contains("Duyuru")) ikon = "📢";
+                    else if (kat.Name.Contains("Kurulum")) ikon = "💿";
+                    else if (kat.Name.Contains("Masaüstü")) ikon = "🖥️";
+                    else if (kat.Name.Contains("Hata")) ikon = "🐛";
+
+                    <li>
+                        <span>@ikon @kat.Name</span>
+
+                        <span class="badge-count">@kat.Topics.Count</span>
+                    </li>
+                }
+            }
+        </ul>
+    </aside>
+
+    <main class="content">
+        <input type="text" class="search-bar" placeholder="Forumda ara... (Örn: Nvidia siyah ekran)">
+
+        <div class="topic-list" id="topic-container">
+
+            @foreach (var konu in Model)
+            {
+                <div class="topic-card">
+                    <div class="topic-header">
+                        @if (konu.IsSolved == true)
+                        {
+                            <span class="tag-solved" style="background: #00d26a; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem; margin-right: 10px;">ÇÖZÜLDÜ</span>
+                        }
+
+                        <a asp-action="TopicDetails" asp-route-id="@konu.TopicId" class="topic-link" style="...">
+                            @konu.Title
+                        </a>
+                    </div>
+
+                    <div class="topic-info" style="color: #94a3b8; font-size: 0.9rem; margin: 10px 0;">
+                        @konu.User.Username tarafından • @konu.Category.Name • @konu.CreatedDate?.ToString("dd.MM.yyyy")
+                    </div>
+
+                    <div class="topic-stats" style="display: flex; gap: 15px;">
+                        <div class="stat">
+                            <span style="color: white; font-weight: bold;">@konu.Replies.Count</span>
+                            <span style="color: #64748b;">Yanıt</span>
+                        </div>
+
+                        <div class="stat">
+                            <span style="color: white; font-weight: bold;">@konu.ViewCount</span>
+                            <span style="color: #64748b;">Gör.</span>
+                        </div>
+                    </div>
+                </div>
+            }
+            @if (Model.Count == 0)
+            {
+                <div style="text-align:center; color:white; padding:20px;">
+                    Henüz hiç konu açılmamış. İlkini sen aç!
+                </div>
+            }
+
+        </div>
+    </main>
+</div>

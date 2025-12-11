@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Kayıt Ol";
+}
+@section Styles {
+    <link rel="stylesheet" href="~/css/yeni_konu.css" />
+}
+
+<div class="container" style="display: flex; justify-content: center; align-items: center; min-height: 80vh;">
+    <div class="form-card" style="width: 100%; max-width: 600px; padding: 40px;">
+        <h2 style="color:white; text-align:center;">🚀 Kayıt Ol</h2>
+
+        @if (ViewBag.Hata != null)
+        {
+            <div style="color: #ef4444; text-align:center; margin-bottom:10px;">@ViewBag.Hata</div>
+        }
+
+        <form asp-action="Register" method="post">
+            <div class="form-group">
+                <label>Kullanıcı Adı</label>
+                <input type="text" name="username" required>
+            </div>
+            <div class="form-group">
+                <label>E-Posta</label>
+                <input type="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label>Şifre</label>
+                <input type="password" name="password" required>
+            </div>
+            <div class="form-actions" style="justify-content:center;">
+                <button type="submit" class="btn-submit">Aramıza Katıl</button>
+            </div>
+        </form>
+    </div>
+</div>

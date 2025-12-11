@@ -1,0 +1,149 @@
+﻿@{
+    ViewData["Title"] = "Wiki & Rehber";
+}
+
+<style>
+    /* WIKI SAYFASI İÇİN ÖZEL CSS */
+    .wiki-container {
+        display: grid;
+        grid-template-columns: 250px 1fr;
+        gap: 40px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+
+    /* Sol Menü */
+    .wiki-sidebar {
+        background-color: #1e293b;
+        padding: 20px;
+        border-radius: 15px;
+        border: 1px solid #334155;
+        height: fit-content;
+        position: sticky;
+        top: 100px; /* Aşağı kaydırınca sabit kalsın */
+    }
+
+        .wiki-sidebar h3 {
+            color: white;
+            margin-top: 0;
+            border-bottom: 2px solid #6c63ff;
+            padding-bottom: 10px;
+        }
+
+    .wiki-nav a {
+        display: block;
+        color: #94a3b8;
+        text-decoration: none;
+        padding: 10px;
+        border-radius: 5px;
+        transition: 0.3s;
+        margin-bottom: 5px;
+    }
+
+        .wiki-nav a:hover {
+            background-color: rgba(108, 99, 255, 0.1);
+            color: white;
+            padding-left: 15px;
+        }
+
+    /* Sağ İçerik */
+    .wiki-content h1 {
+        color: white;
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+    }
+
+    .wiki-content h2 {
+        color: #e2e8f0;
+        margin-top: 40px;
+        border-left: 5px solid #6c63ff;
+        padding-left: 15px;
+    }
+
+    .wiki-content p {
+        color: #cbd5e1;
+        line-height: 1.7;
+    }
+
+    /* Kod Bloğu Tasarımı */
+    .code-block {
+        background-color: #0f172a;
+        border: 1px solid #334155;
+        border-radius: 8px;
+        padding: 20px;
+        font-family: 'Consolas', monospace;
+        color: #fcd535;
+        overflow-x: auto;
+        margin: 20px 0;
+        position: relative;
+    }
+
+        .code-block::before {
+            content: "$ bash";
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: #334155;
+            color: #aaa;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-bottom-left-radius: 8px;
+        }
+</style>
+
+<div class="container wiki-container">
+
+    <aside class="wiki-sidebar">
+        <h3>📚 İçindekiler</h3>
+        <div class="wiki-nav">
+            <a href="#giris">🚀 Başlangıç</a>
+            <a href="#kurulum">💿 Kurulum Adımları</a>
+            <a href="#komutlar">💻 Temel Komutlar</a>
+            <a href="#sss">❓ SSS</a>
+        </div>
+        <div style="margin-top: 20px; text-align: center;">
+            <a asp-action="Download" class="btn-primary" style="font-size:0.8rem; width:100%; box-sizing:border-box;">ISO İndir</a>
+        </div>
+    </aside>
+
+    <main class="wiki-content">
+
+        <h1 id="giris">Xylem OS Rehberi</h1>
+        <p>Xylem OS, performans ve estetiği birleştiren modern bir Linux dağıtımıdır. Bu rehberde kurulumdan ileri seviye yapılandırmaya kadar her şeyi bulabilirsiniz.</p>
+
+        <h2 id="kurulum">1. Kurulum Adımları</h2>
+        <p>İndirdiğiniz ISO dosyasını bir USB belleğe yazdırmanız gerekmektedir. Bunun için <b>Rufus</b> veya <b>BalenaEtcher</b> kullanabilirsiniz.</p>
+
+        <p>USB ile başlattıktan sonra canlı masaüstünde "Install Xylem OS" simgesine tıklayın ve adımları takip edin.</p>
+
+        <h2 id="komutlar">2. Paket Yöneticisi (Pacman)</h2>
+        <p>Xylem OS, Arch tabanlı olduğu için <code>pacman</code> paket yöneticisini kullanır. İşte en sık kullanılan komutlar:</p>
+
+        <p>Sistemi güncellemek için:</p>
+        <div class="code-block">
+            sudo pacman -Syu
+        </div>
+
+        <p>Yeni bir program yüklemek için (Örn: Firefox):</p>
+        <div class="code-block">
+            sudo pacman -S firefox
+        </div>
+
+        <p>Gereksiz paketleri temizlemek için:</p>
+        <div class="code-block">
+            sudo pacman -Rns paket_adi
+        </div>
+
+        <h2 id="sss">3. Sıkça Sorulan Sorular</h2>
+        <p>
+            <b>Soru:</b> Nvidia sürücüleri kurulu geliyor mu?<br>
+            <b>Cevap:</b> Evet, kurulum sırasında "Proprietary Drivers" seçeneğini seçerseniz otomatik yüklenir.
+        </p>
+
+        <p>
+            <b>Soru:</b> Hangi masaüstü ortamını kullanıyor?<br>
+            <b>Cevap:</b> Xylem OS varsayılan olarak özelleştirilmiş GNOME 45 ile gelir.
+        </p>
+
+    </main>
+</div>

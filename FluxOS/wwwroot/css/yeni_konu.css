@@ -1,0 +1,110 @@
+/* Ana Kart Tasarımı */
+.form-card {
+    background-color: #1e293b; /* Kart Rengi */
+    padding: 40px;
+    border-radius: 20px;
+    border: 1px solid #334155;
+    max-width: 800px;
+    margin: 0 auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.form-header h2 {
+    color: white;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.form-header p {
+    color: #94a3b8;
+    margin-bottom: 30px;
+}
+
+/* Form Elemanları */
+.form-group {
+    margin-bottom: 25px;
+}
+
+label {
+    display: block;
+    color: #cbd5e1;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+select,
+textarea {
+    width: 100%;
+    padding: 15px;
+    background-color: #0f172a; /* Koyu Arkaplan */
+    border: 1px solid #334155;
+    border-radius: 10px;
+    color: white;
+    font-family: inherit;
+    font-size: 1rem;
+    box-sizing: border-box; /* Taşmayı önler */
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Tıklayınca parlaması için */
+input:focus, select:focus, textarea:focus {
+    outline: none;
+    border-color: #6c63ff; /* Mor Renk */
+    box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.2);
+}
+
+textarea {
+    height: 200px;
+    resize: vertical;
+}
+
+small {
+    display: block;
+    margin-top: 5px;
+    color: #64748b;
+    font-size: 0.85rem;
+}
+
+/* Butonlar */
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 30px;
+    border-top: 1px solid #334155;
+    padding-top: 20px;
+}
+
+.btn-submit {
+    background-color: #6c63ff;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 50px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, background 0.3s;
+}
+
+.btn-submit:hover {
+    background-color: #5851db;
+    transform: scale(1.05);
+}
+
+.btn-cancel {
+    background-color: transparent;
+    color: #94a3b8;
+    border: 1px solid #334155;
+    padding: 12px 25px;
+    border-radius: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-cancel:hover {
+    border-color: #ef4444;
+    color: #ef4444;
+}

@@ -1,0 +1,119 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@model FluxOS.Models.Topic
+
+@{
+    ViewData["Title"] = Model.Title;
+
+    // 1. Session'dan Giriş Bilgilerini Al (Aracısız, Garanti Yöntem)
+    var session = HttpContextAccessor.HttpContext.Session;
+    var girisYapanId = session.GetInt32("UserId");
+    var girisYapanRol = session.GetString("UserRole");
+
+    // 2. Yetki Kontrolü
+    // Admin mi? (Boşlukları sil, küçük harfe çevirip kontrol et)
+    bool isAdmin = (!string.IsNullOrEmpty(girisYapanRol) && girisYapanRol.Trim().ToLower() == "admin");
+
+    // Konu sahibi mi? (Giriş yapan ID ile Yazar ID aynı mı?)
+    bool isOwner = (girisYapanId != null && girisYapanId == Model.UserId);
+
+    // Butonları göstereyim mi?
+    bool yetkiVar = (isAdmin || isOwner);
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/kd_style.css" />
+}
+
+<div class="container">
+    <div class="topic-header">
+        <h1 class="topic-title">
+            @if (Model.IsSolved == true)
+            {
+                <span class="tag-question" style="background:#00d26a; border-color:#00d26a;">ÇÖZÜLDÜ</span>
+            }
+            else
+            {
+                <span class="tag-question">SORU</span>
+            }
+            @Model.Title
+        </h1>
+
+        @if (yetkiVar)
+        {
+            <div style="margin-top: 15px; display: flex; gap: 10px;">
+
+                <a asp-action="EditTopic" asp-route-id="@Model.TopicId"
+                   style="display: inline-block; background-color: #f59e0b; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 0.9rem; border: 1px solid #d97706;">
+                    ✏️ Düzenle
+                </a>
+
+                <a asp-action="DeleteTopic" asp-route-id="@Model.TopicId"
+                   onclick="return confirm('Bu konuyu kalıcı olarak silmek istediğine emin misin?');"
+                   style="display: inline-block; background-color: #ef4444; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 0.9rem; cursor: pointer; border: 1px solid #b91c1c;">
+                    🗑️ Konuyu Sil
+                </a>
+
+            </div>
+        }
+        <div class="topic-meta">
+            <span>@(Model.Replies?.Count ?? 0) Yanıt</span> •
+            <span>@Model.ViewCount Görüntülenme</span> •
+            Başlatan: @Model.User.Username •
+            Kategori: @Model.Category.Name
+        </div>
+    </div>
+
+    <div class="post">
+        <div class="user-sidebar">
+            <div class="avatar" style="background: @Model.User.AvatarColor;">
+                @Model.User.Username.Substring(0, 1).ToUpper()
+            </div>
+            <span class="username">@Model.User.Username</span>
+            <span class="user-role">@Model.User.Role</span>
+        </div>
+        <div class="post-content">
+            <span class="post-date">@Model.CreatedDate?.ToString("dd.MM.yyyy HH:mm")</span>
+            <div class="post-text">
+                @Html.Raw(Model.Content)
+            </div>
+        </div>
+    </div>
+
+    <div id="messages-container">
+        @if (Model.Replies == null || Model.Replies.Count == 0)
+        {
+            <div id="no-reply-msg" class="empty-state">
+                Henüz bu konuya kimse yanıt vermedi. İlk yanıtlayan sen ol! 🚀
+            </div>
+        }
+        else
+        {
+            @foreach (var yorum in Model.Replies)
+            {
+                <div class="post" style="border-color: #334155;">
+                    <div class="user-sidebar">
+                        <div class="avatar" style="background: @yorum.User.AvatarColor;">
+                            @yorum.User.Username.Substring(0, 1).ToUpper()
+                        </div>
+                        <span class="username">@yorum.User.Username</span>
+                        <span class="user-role">Üye</span>
+                    </div>
+                    <div class="post-content">
+                        <span class="post-date">@yorum.CreatedDate?.ToString("dd.MM.yyyy HH:mm")</span>
+                        <div class="post-text">@yorum.Content</div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+    <div class="reply-area">
+        <h3>Hızlı Yanıt</h3>
+        <form asp-action="AddReply" method="post">
+            <input type="hidden" name="topicId" value="@Model.TopicId" />
+            <textarea id="reply-text" name="content" placeholder="Çözümü biliyor musun? Buraya yaz..." required></textarea>
+            <button type="submit" class="btn-reply">Yanıtı Gönder</button>
+        </form>
+    </div>
+</div>

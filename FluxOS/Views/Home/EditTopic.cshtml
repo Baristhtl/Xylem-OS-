@@ -1,0 +1,59 @@
+﻿@model FluxOS.Models.Topic
+@{
+    ViewData["Title"] = "Konuyu Düzenle";
+    var kategoriler = ViewBag.Kategoriler as List<FluxOS.Models.Category>;
+}
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/yeni_konu.css" />
+}
+
+<div class="container" style="display: flex; justify-content: center; align-items: center; min-height: 80vh;">
+
+    <div class="form-card" style="width: 100%; max-width: 800px;">
+        <div class="form-header">
+            <h2>✏️ Konuyu Düzenle</h2>
+            <p>Bir hata mı yaptın? Hemen düzeltelim.</p>
+        </div>
+
+        <form asp-action="EditTopic" method="post">
+            <input type="hidden" name="id" value="@Model.TopicId" />
+
+            <div class="form-group">
+                <label>Konu Başlığı</label>
+                <input type="text" name="title" value="@Model.Title" required>
+            </div>
+
+            <div class="form-group">
+                <label>Kategori</label>
+                <select name="categoryId" required>
+                    @if (kategoriler != null)
+                    {
+                        foreach (var kat in kategoriler)
+                        {
+                            if (kat.CategoryId == Model.CategoryId)
+                            {
+                                <option value="@kat.CategoryId" selected>@kat.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@kat.CategoryId">@kat.Name</option>
+                            }
+                        }
+                    }
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Mesajınız</label>
+                <textarea name="content" required>@Model.Content</textarea>
+            </div>
+
+            <div class="form-actions">
+                <a asp-action="TopicDetails" asp-route-id="@Model.TopicId" class="btn-cancel" style="text-decoration:none;">İptal</a>
+                <button type="submit" class="btn-submit">Değişiklikleri Kaydet</button>
+            </div>
+
+        </form>
+    </div>
+</div>

@@ -1,0 +1,122 @@
+﻿@model List<FluxOS.Models.News>
+@{
+    ViewData["Title"] = "Haberler";
+    bool isAdmin = ViewBag.IsAdmin ?? false;
+}
+
+<style>
+    .news-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 30px;
+    }
+
+    .news-card {
+        background-color: #1e293b;
+        border: 1px solid #334155;
+        border-radius: 15px;
+        overflow: hidden;
+        transition: transform 0.3s;
+        margin:5px;
+    }
+
+        .news-card:hover {
+            transform: translateY(-10px);
+            border-color: #6c63ff;
+        }
+
+    .news-img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+
+    .news-content {
+        padding: 20px;
+    }
+
+    .news-cat {
+        background-color: #6c63ff;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+
+    .news-date {
+        color: #94a3b8;
+        font-size: 0.85rem;
+        float: right;
+        margin-top: 5px;
+    }
+
+    .news-title {
+        margin: 15px 0 10px 0;
+        font-size: 1.3rem;
+        color: white;
+    }
+
+    .news-summary {
+        color: #cbd5e1;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .admin-actions {
+        padding: 15px;
+        border-top: 1px solid #334155;
+        text-align: right;
+    }
+</style>
+
+<div class="container" style="margin-top: 150px; margin-bottom: 50px;">
+
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div>
+            <h1 style="color: white; margin: 0;">📰 Haberler & Duyurular</h1>
+            <p style="color: #94a3b8; margin-left:10px;">Xylem OS dünyasından en son gelişmeler.</p>
+        </div>
+
+        @if (isAdmin)
+        {
+            <a asp-action="Create" class="btn-primary" style="text-decoration:none;">+ Haber Ekle</a>
+        }
+    </div>
+
+    <div class="news-grid">
+        @foreach (var item in Model)
+        {
+            <div class="news-card">
+                @if (!string.IsNullOrEmpty(item.ImageUrl))
+                {
+                    <img src="@item.ImageUrl" class="news-img" alt="Haber Resmi">
+                }
+                else
+                {
+                    <div class="news-img" style="background: linear-gradient(45deg, #1e293b, #0f172a); display:flex; align-items:center; justify-content:center; color:#64748b;">Resim Yok</div>
+                }
+
+                <div class="news-content">
+                    <div>
+                        <span class="news-cat">@item.Category</span>
+                        <span class="news-date">@item.CreatedDate?.ToString("dd MMM yyyy")</span>
+                    </div>
+                    <h3 class="news-title">@item.Title</h3>
+                    <p class="news-summary">@item.Summary</p>
+                </div>
+
+                @if (isAdmin)
+                {
+                    <div class="admin-actions">
+                        <a asp-action="Delete" asp-route-id="@item.NewsId"
+                           onclick="return confirm('Bu haberi silmek istediğine emin misin?')"
+                           style="color: #ef4444; text-decoration: none; font-weight: bold;">🗑️ Sil</a>
+                    </div>
+                }
+            </div>
+        }
+    </div>
+</div>  

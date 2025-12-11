@@ -1,0 +1,50 @@
+﻿@section Styles {
+    <link rel="stylesheet" href="~/css/yeni_konu.css" />
+}
+
+<div class="container" style="display: flex; justify-content: center; align-items: center; min-height: 80vh;">
+    <div class="form-card" style="width: 100%; max-width: 700px;">
+        <div class="form-header">
+            <h2>📢 Yeni Haber Yayınla</h2>
+        </div>
+
+        <form asp-action="Create" method="post">
+
+            <div class="form-group">
+                <label>Haber Başlığı</label>
+                <input type="text" name="Title" required placeholder="Örn: v1.0 Yayınlandı">
+            </div>
+
+            <div class="form-group">
+                <label>Kategori / Bölüm</label>
+                <select name="Category" required>
+                    <option value="Sistem">Sistem Güncellemesi</option>
+                    <option value="Duyuru">Genel Duyuru</option>
+                    <option value="Etkinlik">Etkinlik</option>
+                    <option value="Basın">Basından</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Resim Linki (URL)</label>
+                <input type="text" name="ImageUrl" placeholder="https://...">
+                <small>İnternetten bir resim adresi yapıştırın.</small>
+            </div>
+
+            <div class="form-group">
+                <label>Kısa Özet (Kartta görünecek)</label>
+                <textarea name="Summary" rows="3" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>İçerik (Detay)</label>
+                <textarea name="Content" rows="10" required></textarea>
+            </div>
+
+            <div class="form-actions">
+                <a asp-action="Index" class="btn-cancel" style="text-decoration:none;">İptal</a>
+                <button type="submit" class="btn-submit">Haberi Yayınla</button>
+            </div>
+        </form>
+    </div>
+</div>
